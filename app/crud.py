@@ -1,7 +1,7 @@
 # crud.py
 from sqlalchemy.orm import Session
-from models import Match, MatchStatus
-import schemas
+from app.models import Match, MatchStatus
+from app import schemas
 from typing import List, Optional
 
 def create_match(db: Session, match_in: schemas.MatchCreate) -> Match:

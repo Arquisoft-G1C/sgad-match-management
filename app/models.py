@@ -1,7 +1,7 @@
 # models.py
 from sqlalchemy import Column, Integer, String, DateTime, Enum, JSON, ForeignKey
 from sqlalchemy.sql import func
-from database import Base
+from app.database import Base
 import enum
 
 class MatchStatus(str, enum.Enum):

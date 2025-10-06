@@ -2,12 +2,13 @@
 import os
 from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-import crud, models, schemas
-from database import engine, Base, get_db
+from app import crud, models, schemas
+from app.database import engine, Base, get_db
 import requests
 import redis
 from dotenv import load_dotenv
 from typing import List, Optional
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
@@ -15,6 +16,14 @@ load_dotenv()
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Match Management Service")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Configs from env
 REFEREE_SERVICE_URL = os.getenv("REFEREE_SERVICE_URL", "http://localhost:8001")  # adjust
