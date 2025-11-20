@@ -1,5 +1,5 @@
 # schemas.py
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import Optional, Any
 from datetime import datetime
 from enum import Enum
@@ -21,13 +21,13 @@ class MatchCreate(MatchBase):
     pass
 
 class MatchUpdate(BaseModel):
-    team_a: Optional[str]
-    team_b: Optional[str]
-    referee_id: Optional[int]
-    scheduled_at: Optional[datetime]
-    location: Optional[str]
-    status: Optional[MatchStatus]
-    result: Optional[Any]
+    team_a: Optional[str] = None
+    team_b: Optional[str] = None
+    referee_id: Optional[int] = None
+    scheduled_at: Optional[datetime] = None
+    location: Optional[str] = None
+    status: Optional[MatchStatus] = None
+    result: Optional[Any] = None
 
 class MatchOut(MatchBase):
     id: int
@@ -36,6 +36,7 @@ class MatchOut(MatchBase):
     created_at: datetime
     updated_at: Optional[datetime]
 
-    class Config:
-        orm_mode = True
-      
+    # Pydantic v2
+    model_config = {
+        "from_attributes": True
+    }
